@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="weather_image_height">200dp</dimen>
+    <dimen name="weather_image_width">200dp</dimen>
+    <dimen name="weather_temp_text_size">32sp</dimen>
+    <dimen name="button_text_size">18sp</dimen>
+</resources>
