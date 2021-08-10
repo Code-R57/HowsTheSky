@@ -1,14 +1,13 @@
-package com.example.howsthesky
+package com.example.howsthesky.currentweather
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import android.view.*
-import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat.getSystemService
+import com.example.howsthesky.CityClass
+import com.example.howsthesky.R
 import com.example.howsthesky.databinding.FragmentCurrentWeatherBinding
 
 class CurrentWeatherFragment : Fragment() {

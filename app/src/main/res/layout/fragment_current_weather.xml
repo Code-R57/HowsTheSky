@@ -18,7 +18,7 @@
             android:id="@+id/ConstraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".CurrentWeatherFragment">
+            tools:context=".currentweather.CurrentWeatherFragment">
 
             <ImageView
                 android:id="@+id/weather_image"

@@ -1,4 +1,4 @@
-package com.example.howsthesky
+package com.example.howsthesky.recentcities
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import com.example.howsthesky.R
 import com.example.howsthesky.databinding.FragmentRecentCitiesBinding
 
 class RecentCitiesFragment : Fragment() {
