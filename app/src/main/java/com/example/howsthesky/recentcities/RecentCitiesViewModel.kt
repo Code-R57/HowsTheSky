@@ -26,7 +26,7 @@ class RecentCitiesViewModel(
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private val cities = database.getAllCitiesWeather()
+    val cities = database.getAllCitiesWeather()
 
     val citiesString = Transformations.map(cities) { cities ->
         formatCityData(cities, application.resources)

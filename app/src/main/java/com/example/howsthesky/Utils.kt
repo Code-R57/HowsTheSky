@@ -4,7 +4,9 @@ import android.content.res.Resources
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
+import android.widget.TextView
 import androidx.core.text.HtmlCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.example.howsthesky.helper.Weather
 
 fun formatCityData(cities: List<Weather>, resources: Resources): Spanned {
@@ -26,3 +28,13 @@ fun formatCityData(cities: List<Weather>, resources: Resources): Spanned {
         return HtmlCompat.fromHtml(sb.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
     }
 }
+
+fun formatTemperatureString(temperature: Double): String {
+    return "Temperature: $temperature °C"
+}
+
+fun formatWeatherDescription(weatherDescription: String): String {
+    return "Weather $weatherDescription"
+}
+
+class TextItemViewHolder(val textView: TextView): RecyclerView.ViewHolder(textView)

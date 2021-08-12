@@ -12,4 +12,5 @@
     <string name="to_current_weather">Current Weather</string>
     <string name="entered_city_name" />
     <string name="button_recent_cities">Recent  Cities  Viewed</string>
+    <string name="recent_cities_heading">LIST OF CITIES SEARCHED</string>
 </resources>
