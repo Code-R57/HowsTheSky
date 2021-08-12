@@ -7,7 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.howsthesky.helper.Weather
 import com.example.howsthesky.helper.WeatherDao
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CurrentWeatherViewModel(
     val database: WeatherDao,
@@ -21,25 +24,16 @@ class CurrentWeatherViewModel(
         viewModelJob.cancel()
     }
 
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
-    private val _navigateToRecentCities = MutableLiveData<Long>()
-    val navigateToRecentCities: LiveData<Long>
+    private val _navigateToRecentCities = MutableLiveData<Boolean>()
+    val navigateToRecentCities: LiveData<Boolean>
         get() = _navigateToRecentCities
 
-    fun onRecentCitiesButtonClicked(id: Long) {
-        _navigateToRecentCities.value = id
+    fun onRecentCitiesButtonClicked() {
+        _navigateToRecentCities.value = true
     }
 
     fun doneNavigating() {
-        _navigateToRecentCities.value = null
-    }
-
-    fun addNewCity() {
-        uiScope.launch{
-            val newCity = Weather()
-            insert(newCity)
-        }
+        _navigateToRecentCities.value = false
     }
 
     private suspend fun insert(city: Weather) {
@@ -48,25 +42,11 @@ class CurrentWeatherViewModel(
         }
     }
 
-    fun updateCity() {
-        uiScope.launch {
+    fun onCheckWeatherButtonClicked(cityName: String) {
+        viewModelScope.launch {
             val city = Weather()
-            update(city)
+            city.cityName = cityName
+            insert(city)
         }
     }
-
-    private suspend fun update(city: Weather) {
-        withContext(Dispatchers.IO) {
-            database.update(city)
-        }
-    }
-
-//    fun onCheckWeatherButtonClicked() {
-//        viewModelScope.launch {
-//            if(database.containsCityName(cityName))
-//                updateCity()
-//            else
-//                addNewCity()
-//        }
-//    }
 }

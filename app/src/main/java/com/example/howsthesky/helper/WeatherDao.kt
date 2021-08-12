@@ -1,23 +1,21 @@
 package com.example.howsthesky.helper
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 
 @Dao
 interface WeatherDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCityWeather(weather: Weather)
 
     @Update
     fun update(weather: Weather)
 
-    @Query("SELECT * FROM weather_data")
+    @Query("SELECT * FROM weather_data ORDER BY city_name ASC")
     fun getAllCitiesWeather(): LiveData<List<Weather>>
 
-    @Query("SELECT count(*)!=0 FROM weather_data WHERE city_name = :cityName")
-    fun containsCityName(cityName: String): Boolean
+    @Query("SELECT COUNT(city_name) FROM weather_data WHERE city_name = :cityName")
+    fun containsCityName(cityName: String): LiveData<Int>
+
 }

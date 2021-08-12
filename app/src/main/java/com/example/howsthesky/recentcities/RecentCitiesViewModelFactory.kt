@@ -3,7 +3,6 @@ package com.example.howsthesky.recentcities
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.howsthesky.currentweather.CurrentWeatherViewModel
 import com.example.howsthesky.helper.WeatherDao
 
 class RecentCitiesViewModelFactory(

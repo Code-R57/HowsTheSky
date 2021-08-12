@@ -6,10 +6,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.howsthesky.databinding.ListItemRecentCitiesBinding
-import com.example.howsthesky.formatTemperatureString
-import com.example.howsthesky.formatWeatherDescription
 
-class RecentCitiesAdapter: ListAdapter<Weather, RecentCitiesAdapter.ViewHolder>(RecentCitiesDiffCallback()) {
+class RecentCitiesAdapter :
+    ListAdapter<Weather, RecentCitiesAdapter.ViewHolder>(RecentCitiesDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
@@ -20,7 +19,8 @@ class RecentCitiesAdapter: ListAdapter<Weather, RecentCitiesAdapter.ViewHolder>(
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(val binding: ListItemRecentCitiesBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(val binding: ListItemRecentCitiesBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         val res = itemView.context.resources
 
         fun bind(item: Weather) {
