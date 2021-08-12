@@ -15,11 +15,11 @@ abstract class WeatherDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: WeatherDatabase? = null
 
-        fun getInstance(context: Context): WeatherDatabase{
+        fun getInstance(context: Context): WeatherDatabase {
             synchronized(this) {
                 var instance = INSTANCE
 
-                if(instance == null) {
+                if (instance == null) {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         WeatherDatabase::class.java,

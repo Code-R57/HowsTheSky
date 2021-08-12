@@ -7,7 +7,8 @@ import com.example.howsthesky.helper.WeatherDao
 
 class CurrentWeatherViewModelFactory(
     private val dataSource: WeatherDao,
-    private val application: Application) : ViewModelProvider.Factory {
+    private val application: Application
+) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CurrentWeatherViewModel::class.java)) {
