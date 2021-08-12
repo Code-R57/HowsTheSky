@@ -17,42 +17,35 @@
         tools:context=".recentcities.RecentCitiesFragment"
         tools:layout_editor_absoluteY="81dp">
 
-        <ScrollView
-            android:id="@+id/scrollView"
+        <TextView
+            android:id="@+id/recent_cities_list_heading"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/recent_cities_heading"
+            android:textAlignment="center"
+            android:textSize="@dimen/recent_cities_heading_text"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recent_cities_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/button_to_current_weather"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/recent_cities_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@+id/recent_cities_list"
-                app:layout_constraintTop_toTopOf="@+id/recent_cities_list">
-
-                <TextView
-                    android:id="@+id/recent_cities_list"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="@{recentCitiesViewModel.citiesString}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
+            app:layout_constraintTop_toBottomOf="@+id/recent_cities_list_heading" />
 
         <Button
             android:id="@+id/button_to_current_weather"
@@ -62,12 +55,13 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:text="@string/to_current_weather"
             android:onClick="@{() -> recentCitiesViewModel.onCurrentWeatherButton()}"
+            android:text="@string/to_current_weather"
+            android:textColor="#212121"
             app:backgroundTint="@android:color/holo_blue_dark"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView" />
+            app:layout_constraintTop_toBottomOf="@+id/recent_cities_list" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

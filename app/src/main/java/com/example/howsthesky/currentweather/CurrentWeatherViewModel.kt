@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.howsthesky.helper.Weather
 import com.example.howsthesky.helper.WeatherDao
 import kotlinx.coroutines.*
@@ -22,9 +23,13 @@ class CurrentWeatherViewModel(
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private val _navigateToRecentCities = MutableLiveData<Weather>()
-    val navigateToRecentCities: LiveData<Weather>
+    private val _navigateToRecentCities = MutableLiveData<Long>()
+    val navigateToRecentCities: LiveData<Long>
         get() = _navigateToRecentCities
+
+    fun onRecentCitiesButtonClicked(id: Long) {
+        _navigateToRecentCities.value = id
+    }
 
     fun doneNavigating() {
         _navigateToRecentCities.value = null
@@ -55,4 +60,13 @@ class CurrentWeatherViewModel(
             database.update(city)
         }
     }
+
+//    fun onCheckWeatherButtonClicked() {
+//        viewModelScope.launch {
+//            if(database.containsCityName(cityName))
+//                updateCity()
+//            else
+//                addNewCity()
+//        }
+//    }
 }

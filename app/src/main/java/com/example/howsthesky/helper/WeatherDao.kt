@@ -17,4 +17,7 @@ interface WeatherDao {
 
     @Query("SELECT * FROM weather_data")
     fun getAllCitiesWeather(): LiveData<List<Weather>>
+
+    @Query("SELECT count(*)!=0 FROM weather_data WHERE city_name = :cityName")
+    fun containsCityName(cityName: String): Boolean
 }

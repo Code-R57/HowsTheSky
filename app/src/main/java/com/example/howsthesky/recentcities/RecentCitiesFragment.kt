@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.howsthesky.R
 import com.example.howsthesky.databinding.FragmentRecentCitiesBinding
+import com.example.howsthesky.helper.RecentCitiesAdapter
 import com.example.howsthesky.helper.WeatherDatabase
 
 class RecentCitiesFragment : Fragment() {
@@ -39,6 +40,15 @@ class RecentCitiesFragment : Fragment() {
                 .get(RecentCitiesViewModel::class.java)
 
         binding.recentCitiesViewModel = recentCitiesViewModel
+
+        val adapter = RecentCitiesAdapter()
+        binding.recentCitiesList.adapter = adapter
+
+        recentCitiesViewModel.cities.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.submitList(it)
+            }
+        })
 
         binding.setLifecycleOwner(this)
 
