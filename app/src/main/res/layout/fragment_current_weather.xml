@@ -10,6 +10,9 @@
         <variable
             name="currentWeatherViewModel"
             type="com.example.howsthesky.currentweather.CurrentWeatherViewModel" />
+        <variable
+            name="cityWeather"
+            type="com.example.howsthesky.helper.Weather" />
     </data>
 
     <ScrollView

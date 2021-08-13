@@ -12,10 +12,10 @@ interface WeatherDao {
     @Update
     fun update(weather: Weather)
 
-    @Query("SELECT * FROM weather_data ORDER BY city_name ASC")
+    @Query("SELECT * FROM weather_data ORDER BY city_id DESC")
     fun getAllCitiesWeather(): LiveData<List<Weather>>
 
-    @Query("SELECT COUNT(city_name) FROM weather_data WHERE city_name = :cityName")
-    fun containsCityName(cityName: String): LiveData<Int>
+    @Query("SELECT * FROM weather_data ORDER BY city_id DESC LIMIT 1")
+    fun getMostRecentCity(): LiveData<Weather>
 
 }

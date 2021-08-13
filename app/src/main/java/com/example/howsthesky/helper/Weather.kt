@@ -2,12 +2,16 @@ package com.example.howsthesky.helper
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "weather_data")
+@Entity(tableName = "weather_data", indices = [Index(value = ["city_name"], unique = true)])
 data class Weather(
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "city_id")
+    var cityId: Long = 0L,
+
     @ColumnInfo(name = "city_name")
     var cityName: String = "",
 
