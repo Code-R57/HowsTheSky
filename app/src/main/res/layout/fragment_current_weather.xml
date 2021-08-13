@@ -14,8 +14,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/app_background">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ConstraintLayout"
@@ -32,11 +31,12 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:contentDescription="@string/weather_image_desc"
-                app:srcCompat="@drawable/ic_launcher_background"
                 app:layout_constraintBottom_toTopOf="@+id/weather_temp_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_launcher_background"
+                tools:ignore="ImageContrastCheck" />
 
             <TextView
                 android:id="@+id/weather_temp_text"
@@ -93,6 +93,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:hint="@string/text_filed_hint"
+                app:boxStrokeColor="@color/app_theme"
                 app:layout_constraintBottom_toTopOf="@+id/button_check_weather"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -117,6 +118,8 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="32dp"
                 android:text="@string/button_check_weather"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/button_color"
                 app:layout_constraintBottom_toTopOf="@+id/button_to_recent_cities"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -131,9 +134,9 @@
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="16dp"
-                android:text="@string/button_recent_cities"
                 android:onClick="@{() -> currentWeatherViewModel.onRecentCitiesButtonClicked()}"
-                app:backgroundTint="@android:color/holo_blue_dark"
+                android:text="@string/button_recent_cities"
+                app:backgroundTint="@color/button_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
