@@ -32,4 +32,5 @@ class RecentCitiesViewModel(
     fun doneNavigating() {
         _navigateToCurrentWeather.value = false
     }
+
 }

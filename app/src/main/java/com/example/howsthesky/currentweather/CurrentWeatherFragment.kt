@@ -31,9 +31,6 @@ class CurrentWeatherFragment : Fragment() {
             false
         )
 
-        binding.cityClass = cityClass
-
-
         val application = requireNotNull(this.activity).application
 
         val dataSource = WeatherDatabase.getInstance(application).weatherDao
@@ -58,6 +55,15 @@ class CurrentWeatherFragment : Fragment() {
             }
         })
 
+        currentWeatherViewModel.recentCity.observe(viewLifecycleOwner, {
+            it?.let {
+                binding.cityText.text = it.cityName
+                binding.weatherTempText.text = "${it.temperature} °C"
+                binding.weatherDescText.text = it.weatherDescription
+            }
+        })
+
+        binding.cityClass = cityClass
 
         binding.buttonCheckWeather.setOnClickListener { view: View ->
 
@@ -71,7 +77,7 @@ class CurrentWeatherFragment : Fragment() {
         binding.apply {
             if (cityEditText.text.toString() != "") {
                 currentWeatherViewModel!!.onCheckWeatherButtonClicked(cityEditText.text.toString())
-                cityClass?.city = cityEditText.text.toString()
+//                cityClass?.city = cityEditText.text.toString()
                 cityEditText.text!!.clear()
                 invalidateAll()
             }

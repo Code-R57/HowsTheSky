@@ -43,6 +43,7 @@ class RecentCitiesFragment : Fragment() {
         val adapter = RecentCitiesAdapter()
         binding.recentCitiesList.adapter = adapter
 
+
         recentCitiesViewModel.cities.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
@@ -61,7 +62,7 @@ class RecentCitiesFragment : Fragment() {
             }
         })
 
-
         return binding.root
     }
+
 }

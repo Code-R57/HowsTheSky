@@ -49,4 +49,6 @@ class CurrentWeatherViewModel(
             insert(city)
         }
     }
+
+    val recentCity = database.getMostRecentCity()
 }
