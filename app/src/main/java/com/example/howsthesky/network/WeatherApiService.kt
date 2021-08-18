@@ -4,12 +4,13 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-private const val BASE_URL = "api.openweathermap.org/data/2.5/"
+private const val BASE_URL = "https://api.openweathermap.org/"
 private const val UNITS = "metric"
 private const val API_KEY = "439125967587239c93915c0306a1311b"
 
@@ -19,18 +20,18 @@ private val moshi = Moshi.Builder()
 
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
-    .addCallAdapterFactory(CoroutineCallAdapterFactory())
+    //.addCallAdapterFactory(CoroutineCallAdapterFactory())
     .baseUrl(BASE_URL)
     .build()
 
 interface WeatherApiService {
-    @GET("weather")
+    @GET("data/2.5/weather")
     fun getWeather(
         @Query("q") city: String,
         @Query("units") unit: String = UNITS,
         @Query("appid") apiKey: String = API_KEY
     ):
-            Deferred<WeatherProperty>
+            Call<WeatherProperty>
 }
 
 object WeatherApi {
