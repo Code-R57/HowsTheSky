@@ -1,5 +1,7 @@
 package com.example.howsthesky
 
+import android.net.Uri
+import androidx.core.net.toUri
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.*
@@ -20,4 +22,8 @@ fun formatTextToCapitalize(string: String): String {
     }
 
     return result
+}
+
+fun convertImgIdToUri(imgId: String?): Uri {
+    return "https://openweathermap.org/img/wn/${imgId}@2x.png".toUri()
 }

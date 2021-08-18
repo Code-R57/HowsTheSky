@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import androidx.databinding.DataBindingUtil
 import android.view.*
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -63,13 +64,14 @@ class CurrentWeatherFragment : Fragment() {
             }
         })
 
-//        currentWeatherViewModel.weatherData.observe(viewLifecycleOwner, {
-//            it?.let {
-//                binding.cityText.text = it.name
-//                binding.weatherTempText.text = "${it.main.temp} °C"
-//                binding.weatherDescText.text = it.weather[0].description
-//            }
-//        })
+        val toastText = "Please Check Your Internet Connection and Try Again!!"
+
+        currentWeatherViewModel.noInternetStatus.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                Toast.makeText(context, toastText, Toast.LENGTH_LONG).show()
+                currentWeatherViewModel.doneShowingToast()
+            }
+        })
 
         binding.cityClass = cityClass
 
