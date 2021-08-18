@@ -1,16 +1,22 @@
 package com.example.howsthesky.currentweather
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.howsthesky.formatTextToCapitalize
 import com.example.howsthesky.helper.Weather
 import com.example.howsthesky.helper.WeatherDao
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.example.howsthesky.network.WeatherApi
+import com.example.howsthesky.network.WeatherProperty
+import kotlinx.coroutines.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.await
+import java.lang.Exception
 
 class CurrentWeatherViewModel(
     val database: WeatherDao,
@@ -42,12 +48,38 @@ class CurrentWeatherViewModel(
         }
     }
 
-    fun onCheckWeatherButtonClicked(cityName: String) {
+    val city = Weather()
+
+    fun onCheckWeatherButtonClicked() {
         viewModelScope.launch {
-            val city = Weather()
-            city.cityName = cityName
             insert(city)
         }
+    }
+
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+    private val _weatherData = MutableLiveData<WeatherProperty>()
+    val weatherData: LiveData<WeatherProperty>
+        get() = _weatherData
+
+    fun getWeatherDetail(cityName: String) {
+        WeatherApi.retrofitService.getWeather(cityName).enqueue(object: Callback<WeatherProperty> {
+            override fun onResponse(
+                call: Call<WeatherProperty>,
+                response: Response<WeatherProperty>
+            ) {
+                val weatherResult = response.body()
+                city.cityName = formatTextToCapitalize(weatherResult!!.name)
+                city.temperature = weatherResult.main.temp
+                city.weatherDescription = formatTextToCapitalize(weatherResult.weather[0].description)
+                onCheckWeatherButtonClicked()
+            }
+
+            override fun onFailure(call: Call<WeatherProperty>, t: Throwable) {
+                Log.i("CurrentWeather", "${t.message}")
+            }
+
+        })
     }
 
     val recentCity = database.getMostRecentCity()

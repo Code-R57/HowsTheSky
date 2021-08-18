@@ -63,6 +63,14 @@ class CurrentWeatherFragment : Fragment() {
             }
         })
 
+//        currentWeatherViewModel.weatherData.observe(viewLifecycleOwner, {
+//            it?.let {
+//                binding.cityText.text = it.name
+//                binding.weatherTempText.text = "${it.main.temp} °C"
+//                binding.weatherDescText.text = it.weather[0].description
+//            }
+//        })
+
         binding.cityClass = cityClass
 
         binding.buttonCheckWeather.setOnClickListener { view: View ->
@@ -75,9 +83,9 @@ class CurrentWeatherFragment : Fragment() {
 
     private fun updateCity(view: View) {
         binding.apply {
-            if (cityEditText.text.toString() != "") {
-                currentWeatherViewModel!!.onCheckWeatherButtonClicked(cityEditText.text.toString())
-//                cityClass?.city = cityEditText.text.toString()
+            var cityNameInput = cityEditText.text.toString()
+            if (cityNameInput != "") {
+                currentWeatherViewModel!!.getWeatherDetail(cityNameInput)
                 cityEditText.text!!.clear()
                 invalidateAll()
             }
