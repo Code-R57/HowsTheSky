@@ -1,5 +1,6 @@
 package com.example.howsthesky.helper
 
+import android.media.Image
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
@@ -10,6 +11,7 @@ import com.example.howsthesky.R
 import com.example.howsthesky.convertImgIdToUri
 import com.example.howsthesky.formatTemperatureString
 import com.example.howsthesky.formatWeatherDescription
+import kotlinx.android.synthetic.main.list_item_recent_cities.view.*
 
 @BindingAdapter("cityName")
 fun TextView.setCityName(item: Weather?) {
@@ -29,6 +31,21 @@ fun TextView.setCityTemperature(item: Weather?) {
 fun TextView.setWeatherDescription(item: Weather?) {
     item?.let {
         text = formatWeatherDescription(item.weatherDescription)
+    }
+}
+
+@BindingAdapter("imgId")
+fun ImageView.setWeatherImage(item: Weather?) {
+    item?.let {
+        val imgUri = convertImgIdToUri(item.appIconId)
+        val imgView = city_weather_image
+        Glide.with(imgView.context)
+            .load(imgUri)
+            .apply(
+                RequestOptions()
+                    .placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.ic_broken_image))
+            .into(imgView)
     }
 }
 
