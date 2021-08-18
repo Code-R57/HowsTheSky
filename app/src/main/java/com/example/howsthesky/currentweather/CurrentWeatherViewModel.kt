@@ -78,10 +78,14 @@ class CurrentWeatherViewModel(
                 response: Response<WeatherProperty>
             ) {
                 val weatherResult = response.body()
-                city.cityName = formatTextToCapitalize(weatherResult!!.name)
-                city.temperature = weatherResult.main.temp
-                city.weatherDescription = formatTextToCapitalize(weatherResult.weather[0].description)
-                _weatherData.value = weatherResult
+                weatherResult?.let {
+                    city.cityName = formatTextToCapitalize(it.name)
+                    city.temperature = it.main.temp
+                    city.weatherDescription = formatTextToCapitalize(it.weather[0].description)
+                    city.appIconId = it.weather[0].icon
+                    _weatherData.value = it
+                }
+
                 onCheckWeatherButtonClicked()
             }
 

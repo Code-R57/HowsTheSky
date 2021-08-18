@@ -19,5 +19,8 @@ data class Weather(
     var temperature: Double = 25.0,
 
     @ColumnInfo(name = "weather_description")
-    var weatherDescription: String = "Thunderstorm"
+    var weatherDescription: String = "Thunderstorm",
+
+    @ColumnInfo(name = "app_icon_id")
+    var appIconId: String = "11d"
 )
