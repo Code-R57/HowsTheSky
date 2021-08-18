@@ -2,6 +2,7 @@ package com.example.howsthesky.currentweather
 
 import android.app.Application
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -62,6 +63,14 @@ class CurrentWeatherViewModel(
     val weatherData: LiveData<WeatherProperty>
         get() = _weatherData
 
+    private val _noInternetStatus = MutableLiveData<Boolean>()
+    val noInternetStatus: LiveData<Boolean>
+        get() = _noInternetStatus
+
+    fun doneShowingToast() {
+        _noInternetStatus.value = false
+    }
+
     fun getWeatherDetail(cityName: String) {
         WeatherApi.retrofitService.getWeather(cityName).enqueue(object: Callback<WeatherProperty> {
             override fun onResponse(
@@ -72,11 +81,12 @@ class CurrentWeatherViewModel(
                 city.cityName = formatTextToCapitalize(weatherResult!!.name)
                 city.temperature = weatherResult.main.temp
                 city.weatherDescription = formatTextToCapitalize(weatherResult.weather[0].description)
+                _weatherData.value = weatherResult
                 onCheckWeatherButtonClicked()
             }
 
             override fun onFailure(call: Call<WeatherProperty>, t: Throwable) {
-                Log.i("CurrentWeather", "${t.message}")
+                _noInternetStatus.value = true
             }
 
         })
