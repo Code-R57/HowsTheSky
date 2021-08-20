@@ -67,8 +67,16 @@ class CurrentWeatherViewModel(
     val noInternetStatus: LiveData<Boolean>
         get() = _noInternetStatus
 
-    fun doneShowingToast() {
+    private val _wrongCityEntered = MutableLiveData<Boolean>()
+    val wrongCityEntered: LiveData<Boolean>
+        get() = _wrongCityEntered
+
+    fun doneShowingNoInternetToast() {
         _noInternetStatus.value = false
+    }
+
+    fun doneShowingWrongCityEnteredToast() {
+        _wrongCityEntered.value = false
     }
 
     fun getWeatherDetail(cityName: String) {
@@ -84,9 +92,12 @@ class CurrentWeatherViewModel(
                     city.weatherDescription = formatTextToCapitalize(it.weather[0].description)
                     city.appIconId = it.weather[0].icon
                     _weatherData.value = it
+                    onCheckWeatherButtonClicked()
+                }
+                if (weatherResult == null) {
+                    _wrongCityEntered.value = true
                 }
 
-                onCheckWeatherButtonClicked()
             }
 
             override fun onFailure(call: Call<WeatherProperty>, t: Throwable) {
