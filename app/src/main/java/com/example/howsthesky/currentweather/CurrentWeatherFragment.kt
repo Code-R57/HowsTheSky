@@ -1,16 +1,20 @@
 package com.example.howsthesky.currentweather
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import androidx.databinding.DataBindingUtil
-import android.view.*
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.howsthesky.CityClass
 import com.example.howsthesky.R
+import com.example.howsthesky.convertImgIdToUri
 import com.example.howsthesky.databinding.FragmentCurrentWeatherBinding
 import com.example.howsthesky.helper.WeatherDatabase
 
@@ -61,15 +65,32 @@ class CurrentWeatherFragment : Fragment() {
                 binding.cityText.text = it.cityName
                 binding.weatherTempText.text = "${it.temperature} °C"
                 binding.weatherDescText.text = it.weatherDescription
+                val imgUri = convertImgIdToUri(it.appIconId)
+                val imgView = binding.weatherImage
+                Glide.with(imgView.context)
+                    .load(imgUri)
+                    .apply(
+                        RequestOptions()
+                            .placeholder(R.drawable.loading_animation)
+                            .error(R.drawable.ic_broken_image))
+                    .into(imgView)
             }
         })
 
-        val toastText = "Please Check Your Internet Connection and Try Again!!"
+        val noInternetText = "Please Check Your Internet Connection and Try Again!!"
+        val wrongCityText = "The location entered could not be found!"
 
-        currentWeatherViewModel.noInternetStatus.observe(viewLifecycleOwner, Observer {
+        currentWeatherViewModel.noInternetStatus.observe(viewLifecycleOwner, {
             if (it) {
-                Toast.makeText(context, toastText, Toast.LENGTH_LONG).show()
-                currentWeatherViewModel.doneShowingToast()
+                Toast.makeText(context, noInternetText, Toast.LENGTH_LONG).show()
+                currentWeatherViewModel.doneShowingNoInternetToast()
+            }
+        })
+
+        currentWeatherViewModel.wrongCityEntered.observe(viewLifecycleOwner, {
+            if (it){
+                Toast.makeText(context, wrongCityText, Toast.LENGTH_SHORT).show()
+                currentWeatherViewModel.doneShowingWrongCityEnteredToast()
             }
         })
 

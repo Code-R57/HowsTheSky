@@ -27,3 +27,4 @@ fun formatTextToCapitalize(string: String): String {
 fun convertImgIdToUri(imgId: String?): Uri {
     return "https://openweathermap.org/img/wn/${imgId}@2x.png".toUri()
 }
+
