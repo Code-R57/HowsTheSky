@@ -72,7 +72,8 @@ class CurrentWeatherFragment : Fragment() {
                     .apply(
                         RequestOptions()
                             .placeholder(R.drawable.loading_animation)
-                            .error(R.drawable.ic_broken_image))
+                            .error(R.drawable.ic_broken_image)
+                    )
                     .into(imgView)
             }
         })
@@ -88,7 +89,7 @@ class CurrentWeatherFragment : Fragment() {
         })
 
         currentWeatherViewModel.wrongCityEntered.observe(viewLifecycleOwner, {
-            if (it){
+            if (it) {
                 Toast.makeText(context, wrongCityText, Toast.LENGTH_SHORT).show()
                 currentWeatherViewModel.doneShowingWrongCityEnteredToast()
             }

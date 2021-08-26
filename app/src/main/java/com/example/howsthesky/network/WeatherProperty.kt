@@ -1,55 +1,18 @@
 package com.example.howsthesky.network
 
+import com.squareup.moshi.Json
+
 data class WeatherProperty(
-    val base: String,
-    val clouds: Clouds,
-    val cod: Int,
-    val coord: Coord,
-    val dt: Int,
-    val id: Int,
-    val main: Main,
-    val name: String,
-    val sys: Sys,
-    val timezone: Int,
-    val visibility: Int,
-    val weather: List<Weather>,
-    val wind: Wind
+    @Json(name = "main") val mainWeatherData: Main,
+    @Json(name = "name") val cityName: String,
+    @Json(name = "weather") val weatherDescList: List<Weather>
 )
 
 data class Main(
-    val feels_like: Double,
-    val humidity: Int,
-    val pressure: Int,
-    val temp: Double,
-    val temp_max: Double,
-    val temp_min: Double
+    @Json(name = "temp") val temp: Double
 )
 
 data class Weather(
-    val description: String,
-    val icon: String,
-    val id: Int,
-    val main: String
-)
-
-data class Sys(
-    val country: String,
-    val id: Int,
-    val sunrise: Int,
-    val sunset: Int,
-    val type: Int
-)
-
-data class Coord(
-    val lat: Double,
-    val lon: Double
-)
-
-data class Clouds(
-    val all: Int
-)
-
-data class Wind(
-    val deg: Int,
-    val speed: Double
+    @Json(name = "description") val description: String,
+    @Json(name = "icon") val iconId: String
 )

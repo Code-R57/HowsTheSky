@@ -4,7 +4,7 @@
     <style name="text_style">
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/text_color</item>
     </style>
 
     <style name="navigation_button_style">
