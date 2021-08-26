@@ -2,7 +2,6 @@ package com.example.howsthesky.currentweather
 
 import android.app.Application
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +12,6 @@ import com.example.howsthesky.helper.WeatherDao
 import com.example.howsthesky.network.WeatherApi
 import com.example.howsthesky.network.WeatherProperty
 import kotlinx.coroutines.*
-import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.await
@@ -79,32 +77,30 @@ class CurrentWeatherViewModel(
         _wrongCityEntered.value = false
     }
 
+    private val noInfoErrorMessage = "HTTP 404 Not Found"
+
     fun getWeatherDetail(cityName: String) {
-        WeatherApi.retrofitService.getWeather(cityName).enqueue(object: Callback<WeatherProperty> {
-            override fun onResponse(
-                call: Call<WeatherProperty>,
-                response: Response<WeatherProperty>
-            ) {
-                val weatherResult = response.body()
-                weatherResult?.let {
-                    city.cityName = formatTextToCapitalize(it.name)
-                    city.temperature = it.main.temp
-                    city.weatherDescription = formatTextToCapitalize(it.weather[0].description)
-                    city.appIconId = it.weather[0].icon
+        coroutineScope.launch{
+            var getWeatherDataDeferred = WeatherApi.retrofitService.getWeather(cityName)
+            try {
+                val weatherResult = getWeatherDataDeferred.await()
+                weatherResult.let {
+                    city.cityName = formatTextToCapitalize(it.cityName)
+                    city.temperature = it.mainWeatherData.temp
+                    city.weatherDescription = formatTextToCapitalize(it.weatherDescList[0].description)
+                    city.appIconId = it.weatherDescList[0].iconId
                     _weatherData.value = it
                     onCheckWeatherButtonClicked()
                 }
-                if (weatherResult == null) {
+            } catch (e: Exception) {
+                if(e.message == noInfoErrorMessage) {
                     _wrongCityEntered.value = true
                 }
-
+                else {
+                    _noInternetStatus.value = true
+                }
             }
-
-            override fun onFailure(call: Call<WeatherProperty>, t: Throwable) {
-                _noInternetStatus.value = true
-            }
-
-        })
+        }
     }
 
     val recentCity = database.getMostRecentCity()
