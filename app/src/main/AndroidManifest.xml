@@ -10,7 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_app_icon_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.HowsTheSky">
+        android:theme="@style/Theme.HowsTheSky"
+        android:configChanges="uiMode">
 
         <activity android:name=".MainActivity">
             <intent-filter>

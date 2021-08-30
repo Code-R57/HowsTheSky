@@ -26,7 +26,7 @@
             android:layout_marginBottom="8dp"
             android:text="@string/recent_cities_heading"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/text_color"
             android:textSize="@dimen/recent_cities_heading_text"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/recent_cities_list"

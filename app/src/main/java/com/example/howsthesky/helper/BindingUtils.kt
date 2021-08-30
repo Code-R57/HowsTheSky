@@ -12,6 +12,7 @@ import com.example.howsthesky.convertImgIdToUri
 import com.example.howsthesky.formatTemperatureString
 import com.example.howsthesky.formatWeatherDescription
 import kotlinx.android.synthetic.main.list_item_recent_cities.view.*
+import kotlin.math.absoluteValue
 
 @BindingAdapter("cityName")
 fun TextView.setCityName(item: Weather?) {
