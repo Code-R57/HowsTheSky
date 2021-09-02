@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.howsthesky.databinding.ListItemRecentCitiesBinding
 
-class RecentCitiesAdapter :
+class RecentCitiesAdapter(val clickListener: RecentCitiesListener) :
     ListAdapter<Weather, RecentCitiesAdapter.ViewHolder>(RecentCitiesDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(clickListener,item)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,8 +23,9 @@ class RecentCitiesAdapter :
         RecyclerView.ViewHolder(binding.root) {
         val res = itemView.context.resources
 
-        fun bind(item: Weather) {
+        fun bind(clickListener: RecentCitiesListener, item: Weather) {
             binding.cityWeather = item
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 
@@ -47,5 +48,8 @@ class RecentCitiesDiffCallback : DiffUtil.ItemCallback<Weather>() {
     override fun areContentsTheSame(oldItem: Weather, newItem: Weather): Boolean {
         return oldItem == newItem
     }
+}
 
+class RecentCitiesListener (val clickListener: (cityName: String) -> Unit) {
+    fun onClick(city: Weather) = clickListener(city.cityName)
 }

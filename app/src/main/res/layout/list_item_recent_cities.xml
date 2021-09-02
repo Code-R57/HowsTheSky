@@ -7,13 +7,18 @@
         <variable
             name="cityWeather"
             type="com.example.howsthesky.helper.Weather" />
+        
+        <variable
+            name="clickListener"
+            type="com.example.howsthesky.helper.RecentCitiesListener" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/list_item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> clickListener.onClick(cityWeather)}">
 
         <ImageView
             android:id="@+id/city_weather_image"
