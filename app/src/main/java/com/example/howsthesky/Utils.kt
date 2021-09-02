@@ -20,7 +20,7 @@ fun formatTextToCapitalize(string: String): String {
     for(word in words){
         result += word.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() } + " "
     }
-
+    result = result.trim()
     return result
 }
 

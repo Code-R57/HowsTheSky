@@ -125,7 +125,7 @@ class CurrentWeatherFragment : Fragment() {
         binding.apply {
             var cityNameInput = cityEditText.text.toString()
             if (cityNameInput != "") {
-                currentWeatherViewModel!!.getWeatherDetail(cityNameInput)
+                currentWeatherViewModel!!.getWeatherDetail(cityNameInput.trim())
                 cityEditText.text!!.clear()
                 invalidateAll()
             }
