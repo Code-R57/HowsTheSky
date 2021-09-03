@@ -5,7 +5,8 @@
       <map>
         <entry key="..\:/MyFolder/Ritvik/Programming/AndroidDev/HowsTheSky/app/src/main/res/layout/fragment_current_weather.xml" value="0.1796875" />
         <entry key="..\:/MyFolder/Ritvik/Programming/AndroidDev/HowsTheSky/app/src/main/res/layout/fragment_recent_cities.xml" value="0.1" />
-        <entry key="..\:/MyFolder/Ritvik/Programming/AndroidDev/HowsTheSky/app/src/main/res/layout/list_item_recent_cities.xml" value="0.1" />
+        <entry key="..\:/MyFolder/Ritvik/Programming/AndroidDev/HowsTheSky/app/src/main/res/layout/fragment_weather_detail.xml" value="0.16666666666666666" />
+        <entry key="..\:/MyFolder/Ritvik/Programming/AndroidDev/HowsTheSky/app/src/main/res/layout/list_item_recent_cities.xml" value="0.16666666666666666" />
         <entry key="..\:/MyFolder/Ritvik/Programming/AndroidDev/HowsTheSky/app/src/main/res/menu/display_mode_menu.xml" value="0.1796875" />
       </map>
     </option>

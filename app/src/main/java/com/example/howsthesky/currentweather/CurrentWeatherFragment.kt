@@ -15,7 +15,9 @@ import com.example.howsthesky.CityClass
 import com.example.howsthesky.R
 import com.example.howsthesky.convertImgIdToUri
 import com.example.howsthesky.databinding.FragmentCurrentWeatherBinding
+import com.example.howsthesky.formatTemperatureString
 import com.example.howsthesky.helper.WeatherDatabase
+import kotlinx.android.synthetic.main.fragment_current_weather.*
 
 class CurrentWeatherFragment : Fragment() {
 
@@ -55,14 +57,25 @@ class CurrentWeatherFragment : Fragment() {
                     CurrentWeatherFragmentDirections
                         .actionCurrentWeatherFragmentToRecentCitiesFragment()
                 )
-                currentWeatherViewModel.doneNavigating()
+                currentWeatherViewModel.doneNavigatingToRecentCities()
+            }
+        })
+
+        currentWeatherViewModel.navigateToWeatherDetails.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                findNavController().navigate(
+                    CurrentWeatherFragmentDirections
+                        .actionCurrentWeatherFragmentToWeatherDetailFragment(city_text.text.toString())
+                )
+                currentWeatherViewModel.doneNavigatingToWeatherDetails()
             }
         })
 
         currentWeatherViewModel.recentCity.observe(viewLifecycleOwner, {
             it?.let {
+                binding.moreDetailsOption.visibility = View.VISIBLE
                 binding.cityText.text = it.cityName
-                binding.weatherTempText.text = "${it.temperature} °C"
+                binding.weatherTempText.text = formatTemperatureString(it.temperature)
                 binding.weatherDescText.text = it.weatherDescription
                 val imgUri = convertImgIdToUri(it.appIconId)
                 val imgView = binding.weatherImage

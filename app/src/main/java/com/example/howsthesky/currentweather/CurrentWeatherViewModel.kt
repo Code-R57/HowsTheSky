@@ -37,8 +37,19 @@ class CurrentWeatherViewModel(
         _navigateToRecentCities.value = true
     }
 
-    fun doneNavigating() {
+    fun doneNavigatingToRecentCities() {
         _navigateToRecentCities.value = false
+    }
+
+    private val _navigateToWeatherDetails = MutableLiveData<Boolean>()
+    val navigateToWeatherDetails: LiveData<Boolean>
+        get() = _navigateToWeatherDetails
+
+    fun onMoreDetailsClicked() {
+        _navigateToWeatherDetails.value = true
+    }
+    fun doneNavigatingToWeatherDetails() {
+        _navigateToWeatherDetails.value = false
     }
 
     private suspend fun insert(city: Weather) {
@@ -78,6 +89,11 @@ class CurrentWeatherViewModel(
     }
 
     private val noInfoErrorMessage = "HTTP 404 Not Found"
+
+    init {
+        val recentCity = database.getMostRecentCity()
+        recentCity.value?.let { getWeatherDetail(it.cityName) }
+    }
 
     fun getWeatherDetail(cityName: String) {
         coroutineScope.launch{
