@@ -63,9 +63,11 @@ class CurrentWeatherFragment : Fragment() {
 
         currentWeatherViewModel.navigateToWeatherDetails.observe(viewLifecycleOwner, Observer {
             if (it) {
+                var cityName = city_text.text.toString()
+                currentWeatherViewModel.getWeatherDetail(cityName)
                 findNavController().navigate(
                     CurrentWeatherFragmentDirections
-                        .actionCurrentWeatherFragmentToWeatherDetailFragment(city_text.text.toString())
+                        .actionCurrentWeatherFragmentToWeatherDetailFragment(cityName)
                 )
                 currentWeatherViewModel.doneNavigatingToWeatherDetails()
             }
