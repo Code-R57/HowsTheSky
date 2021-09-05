@@ -1,7 +1,6 @@
 package com.example.howsthesky.currentweather
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,10 +11,6 @@ import com.example.howsthesky.helper.WeatherDao
 import com.example.howsthesky.network.WeatherApi
 import com.example.howsthesky.network.WeatherProperty
 import kotlinx.coroutines.*
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.await
-import java.lang.Exception
 
 class CurrentWeatherViewModel(
     val database: WeatherDao,
@@ -37,8 +32,20 @@ class CurrentWeatherViewModel(
         _navigateToRecentCities.value = true
     }
 
-    fun doneNavigating() {
+    fun doneNavigatingToRecentCities() {
         _navigateToRecentCities.value = false
+    }
+
+    private val _navigateToWeatherDetails = MutableLiveData<Boolean>()
+    val navigateToWeatherDetails: LiveData<Boolean>
+        get() = _navigateToWeatherDetails
+
+    fun onMoreDetailsClicked() {
+        _navigateToWeatherDetails.value = true
+    }
+
+    fun doneNavigatingToWeatherDetails() {
+        _navigateToWeatherDetails.value = false
     }
 
     private suspend fun insert(city: Weather) {
@@ -80,23 +87,23 @@ class CurrentWeatherViewModel(
     private val noInfoErrorMessage = "HTTP 404 Not Found"
 
     fun getWeatherDetail(cityName: String) {
-        coroutineScope.launch{
+        coroutineScope.launch {
             var getWeatherDataDeferred = WeatherApi.retrofitService.getWeather(cityName)
             try {
                 val weatherResult = getWeatherDataDeferred.await()
                 weatherResult.let {
                     city.cityName = formatTextToCapitalize(it.cityName)
                     city.temperature = it.mainWeatherData.temp
-                    city.weatherDescription = formatTextToCapitalize(it.weatherDescList[0].description)
+                    city.weatherDescription =
+                        formatTextToCapitalize(it.weatherDescList[0].description)
                     city.appIconId = it.weatherDescList[0].iconId
                     _weatherData.value = it
                     onCheckWeatherButtonClicked()
                 }
             } catch (e: Exception) {
-                if(e.message == noInfoErrorMessage) {
+                if (e.message == noInfoErrorMessage) {
                     _wrongCityEntered.value = true
-                }
-                else {
+                } else {
                     _noInternetStatus.value = true
                 }
             }

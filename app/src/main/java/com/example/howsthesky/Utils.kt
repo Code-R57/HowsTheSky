@@ -14,6 +14,22 @@ fun formatWeatherDescription(weatherDescription: String): String {
     return weatherDescription
 }
 
+fun formatNumberToPercent(number: Double): String {
+    return "$number %"
+}
+
+fun formatNumberToPercent(number: Int): String {
+    return "$number %"
+}
+
+fun formatWindSpeed(speed: Double): String {
+    return "$speed m/s"
+}
+
+fun formatVisibilityValue(visibility: Int): String {
+    return "${(visibility - visibility%100).toDouble()/1000} km"
+}
+
 fun formatTextToCapitalize(string: String): String {
     val words = string.split(" ").toMutableList()
     var result = ""
