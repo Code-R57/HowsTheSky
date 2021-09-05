@@ -32,8 +32,7 @@
             app:layout_constraintEnd_toStartOf="@+id/text_temperature"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.481"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            tools:src="@mipmap/unknown_weather" />
 
         <TextView
             android:id="@+id/city_name"
@@ -42,7 +41,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:text="TextView"
+            tools:text="Hyderabad"
             android:textColor="@color/text_color"
             android:textSize="@dimen/city_text"
             app:cityName="@{cityWeather}"
@@ -86,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
-            android:text="TextView"
+            tools:text="25 °C"
             android:textColor="@color/text_color"
             app:cityTemperature="@{cityWeather}"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_temperature"
@@ -101,7 +100,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="19dp"
-            android:text="TextView"
+            tools:text="Thunderstorm"
             android:textColor="@color/text_color"
             app:weatherDescription="@{cityWeather}"
             app:layout_constraintBottom_toBottomOf="parent"

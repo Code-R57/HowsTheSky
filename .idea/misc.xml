@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MyFolder/Ritvik/Programming/AndroidDev/HowsTheSky/app/src/main/res/drawable/ic_broken_image.xml" value="0.146875" />
+        <entry key="..\:/MyFolder/Ritvik/Programming/AndroidDev/HowsTheSky/app/src/main/res/drawable/loading_img.xml" value="0.146875" />
         <entry key="..\:/MyFolder/Ritvik/Programming/AndroidDev/HowsTheSky/app/src/main/res/layout/fragment_current_weather.xml" value="0.1796875" />
         <entry key="..\:/MyFolder/Ritvik/Programming/AndroidDev/HowsTheSky/app/src/main/res/layout/fragment_recent_cities.xml" value="0.1" />
         <entry key="..\:/MyFolder/Ritvik/Programming/AndroidDev/HowsTheSky/app/src/main/res/layout/fragment_weather_detail.xml" value="0.16666666666666666" />

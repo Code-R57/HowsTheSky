@@ -86,7 +86,7 @@ class CurrentWeatherFragment : Fragment() {
                     .apply(
                         RequestOptions()
                             .placeholder(R.drawable.loading_animation)
-                            .error(R.drawable.ic_broken_image)
+                            .error(R.mipmap.unknown_weather)
                     )
                     .into(imgView)
             }

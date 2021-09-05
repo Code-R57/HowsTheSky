@@ -27,7 +27,7 @@ fun formatWindSpeed(speed: Double): String {
 }
 
 fun formatVisibilityValue(visibility: Int): String {
-    return "${(visibility - visibility%100)/1000} km"
+    return "${(visibility - visibility%100).toDouble()/1000} km"
 }
 
 fun formatTextToCapitalize(string: String): String {
