@@ -27,7 +27,7 @@
     
 1. **Adding the API Key in the Project:**
     1. In the project folder, go to ` local.properties ` file
-    1. Add the line ` OW_KEY={Your API Key} ` ( do not add the { } )
+    1. Add the line ` OW_KEY={Your API Key} ` in the file ( do not add the { } )
 
 ## OpenWeather API
 
